@@ -21,8 +21,8 @@ def load_data(path : str) -> dict:
             # eliminamos temrinación de .txt para obtener DataReceptor y coordenadas
             name = fn.replace('.txt', '')
             _,x,y,z = name.split('_')
-            # como key son las coordenadas y valor 500 datos de cada .txt, la segunda columna que se considera en si la amplitud de la onda
+            # como key son las coordenadas y valor 250 datos de cada .txt, la segunda columna que se considera en si la amplitud de la onda
             key = (float(x), float(y), float(z))
             df = pd.read_csv(os.path.join(path, fn), sep='\t', header=None, names = ['_', 'amplitud'])
-            data[key] = df['amplitud'].to_numpy()[:300] # 500 datos debido a que 
+            data[key] = df['amplitud'].to_numpy()[:250] # 250 datos debido a que a partir de dicha posición, la onda converge en 0
     return data
