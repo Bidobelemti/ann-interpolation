@@ -16,6 +16,19 @@ BATCH_SIZE = 64
 TOLERANCIA = 0.05 
 
 def make_tensor_values(data: dict, device: str = 'cpu') -> tuple:
+    '''
+        Convierte los datos en tensores de PyTorch.
+        input:
+            data: dict
+                Diccionario con coordenadas y señales.
+            device: str
+                Dispositivo donde se almacenarán los tensores ('cpu' o 'cuda').
+        output:
+            X: torch.Tensor
+                Tensor con las coordenadas.
+            Y: torch.Tensor
+                Tensor con las señales.
+    '''
     # 1. Extraer las llaves (coordenadas) y valores (señales) directamente
     coords = list(data.keys())      # (x,y,z)
     signals = list(data.values())   # array de amplitud de onda
@@ -84,7 +97,7 @@ def main():
             acciertos = (diff < TOLERANCIA).sum().item()
 
             correct += acciertos
-            total_elementos += batch_X.numel()
+            total_elementos += batch_Y.numel()
         
         epoch_loss = loss / len(train_loader.dataset)
         train_acc = correct / total_elementos
